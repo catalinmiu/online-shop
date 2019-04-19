@@ -36,4 +36,6 @@ public class ProductsDao {
         sqlParameterSource.addValue("category_id", product.getCategoryId());
         return simpleJdbcInsert.executeAndReturnKey(sqlParameterSource).intValue();
     }
+
+    String asdf="sdfa";
 }
