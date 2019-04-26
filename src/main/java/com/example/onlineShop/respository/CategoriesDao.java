@@ -19,14 +19,14 @@ public class CategoriesDao {
     private JdbcTemplate jdbcTemplate;
 
     public List<Category> findAll(){
-        String query = "SELECT id, title FROM Category";
+        String query = "SELECT id, title FROM Categories";
         RowMapper<Category> rowMapper = new BeanPropertyRowMapper<>(Category.class);
         return jdbcTemplate.query(query, rowMapper);
     }
 
     public int create(Category category){
         SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
-        simpleJdbcInsert.withTableName("Category").usingColumns("title").usingGeneratedKeyColumns("id");
+        simpleJdbcInsert.withTableName("Categories").usingColumns("title").usingGeneratedKeyColumns("id");
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("title", category.getTitle());
         return simpleJdbcInsert.executeAndReturnKey(sqlParameterSource).intValue();

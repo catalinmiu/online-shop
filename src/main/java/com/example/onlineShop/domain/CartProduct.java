@@ -1,5 +1,7 @@
 package com.example.onlineShop.domain;
 
+import java.util.Objects;
+
 public class CartProduct {
 
     private int id;
@@ -30,5 +32,20 @@ public class CartProduct {
 
     public void setUnits(int units) {
         this.units = units;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CartProduct that = (CartProduct) o;
+        return id == that.id &&
+                product_id == that.product_id &&
+                units == that.units;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, product_id, units);
     }
 }

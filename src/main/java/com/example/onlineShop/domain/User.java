@@ -1,8 +1,10 @@
 package com.example.onlineShop.domain;
 
+import java.util.Objects;
+
 public class User {
 
-    private Long id;
+    private int id;
 
     private String username;
 
@@ -12,11 +14,11 @@ public class User {
 
     private String user_role;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -50,5 +52,22 @@ public class User {
 
     public void setUser_role(String user_role) {
         this.user_role = user_role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(user_password, user.user_password) &&
+                Objects.equals(user_role, user.user_role);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, email, user_password, user_role);
     }
 }

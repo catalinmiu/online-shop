@@ -1,6 +1,7 @@
 package com.example.onlineShop.domain;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Product {
 
@@ -72,5 +73,24 @@ public class Product {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id &&
+                Float.compare(product.price, price) == 0 &&
+                stock == product.stock &&
+                categoryId == product.categoryId &&
+                Objects.equals(title, product.title) &&
+                Objects.equals(description, product.description) &&
+                Objects.equals(createdDate, product.createdDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, price, description, stock, createdDate, categoryId);
     }
 }
