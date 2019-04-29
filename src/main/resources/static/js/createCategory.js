@@ -1,29 +1,21 @@
-function Product(title, price, description, stock, categoryId){
+function Category(title){
     this.title = title;
-    this.price = price;
-    this.description = description;
-    this.stock = stock;
-    this.categoryId = categoryId;
 }
 
 $(document).ready(function() {
     $("#submitBtn").click(function() {
         var title = $("#productTitle").val();
-        var price = $("#productPrice").val();
-        var description = $("#productDescription").val();
-        var stock = $("#productStock").val();
-        var categoryId = $("#categoryId").val();
-        var product = new Product(title, price, description, stock, categoryId);
-        console.log(JSON.stringify(product));
+        var category = new Category(title);
+        console.log(JSON.stringify(category));
 
         $.ajax({
             type: "POST",
-            url : "/create_product",
+            url : "/create_category",
             headers: {
                 'Accept' : 'application/json',
                 'Content-Type' : 'application/json'
             },
-            data : JSON.stringify(product),
+            data : JSON.stringify(category),
             success : function(data) {
                 console.log("succes");
             },

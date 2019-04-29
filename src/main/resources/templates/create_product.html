@@ -13,7 +13,14 @@
         <p>Price <input id = "productPrice" type="number"></p>
         <p>Description <textarea id = "productDescription"></textarea></p>
         <p>Stock <input id = "productStock" type="number"></p>
-        <p>Category <select id="categoryId"><option>1</option><option>2</option></select></p>
+        <p>Category
+            <select id="categoryId">
+                <tr th:each="category : ${categories}">
+                    <option th:value="${category.id}"><td th:text="${category.title}"></td></option>
+                    <br/>
+                </tr>
+            </select>
+        </p>
         <p><input type="button" value="Submit" id="submitBtn"></p>
     </form>
 </div>
