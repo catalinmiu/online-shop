@@ -1,0 +1,24 @@
+#login-form {
+text-align: center;
+width: 80%;
+auto;
+padding: 20px;
+}
+
+.form-actions {
+text-align: center;
+width: 80%;
+auto;
+}
+
+#loginBtn {
+width: 100%
+}
+
+#signUpBtn {
+background-color: transparent;
+color: black;
+text-decoration: underline;
+12px;
+}
+

@@ -1,0 +1,39 @@
+#title {
+text-align: center;
+}
+
+.error {
+white-space: pre;
+color: red;
+//font-weight: bold;
+14px;
+}
+
+#content {
+background-color: #f2f2f2;
+max-width: 600px;
+auto;
+}
+
+button, input[type=button] {
+background-color: #3a3a3a;
+color: white;
+padding: 8px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+button:hover, input[type=button]:hover {
+background-color: #333333;
+}
+
+input {
+width: 80%;
+padding: 10px 14px;
+8px 0;
+box-sizing: border-box;
+-webkit-border-radius: 8px;
+-moz-border-radius: 8px;
+border-radius: 8px;
+}

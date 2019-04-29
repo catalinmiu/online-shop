@@ -1,6 +1,8 @@
 package com.example.onlineShop.controller;
 
+import com.example.onlineShop.domain.Category;
 import com.example.onlineShop.domain.Product;
+import com.example.onlineShop.respository.CategoriesDao;
 import com.example.onlineShop.respository.ProductsDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +18,10 @@ import java.time.LocalDateTime;
 public class ProductsController {
 
     @Autowired
-    ProductsDao productsDao;
+    private ProductsDao productsDao;
+
+    @Autowired
+    private CategoriesDao categoriesDao;
 
     @GetMapping("/")
     public String getHomePage() {
@@ -29,7 +34,7 @@ public class ProductsController {
         return "products";
     }
 
-    @PostMapping(value = "/createProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/create_product", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity createProduct(@RequestBody Product product) {
         product.setCreatedDate(LocalDateTime.now());
@@ -38,9 +43,21 @@ public class ProductsController {
 
     }
 
-    @GetMapping("/createProduct")
-    public String getCreateProduct() {
-        return "createProduct";
+    @GetMapping("/create_product")
+    public String getCreateProduct(Model model) {
+        model.addAttribute("categories", categoriesDao.findAll());
+        return "create_product";
     }
 
+    @GetMapping("/create_category")
+    public String getCreateCategory() {
+        return "create_category";
+    }
+
+    @PostMapping(value = "/create_category", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity createCategory(@RequestBody Category category) {
+        categoriesDao.create(category);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

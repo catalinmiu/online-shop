@@ -12,7 +12,7 @@ public class User {
 
     private String user_password;
 
-    private String user_role;
+    private int user_role;
 
     public int getId() {
         return id;
@@ -46,11 +46,11 @@ public class User {
         this.user_password = user_password;
     }
 
-    public String getUser_role() {
+    public int getUser_role() {
         return user_role;
     }
 
-    public void setUser_role(String user_role) {
+    public void setUser_role(int user_role) {
         this.user_role = user_role;
     }
 
@@ -59,11 +59,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) &&
+        return id == user.id &&
+                user_role == user.user_role &&
                 Objects.equals(username, user.username) &&
                 Objects.equals(email, user.email) &&
-                Objects.equals(user_password, user.user_password) &&
-                Objects.equals(user_role, user.user_role);
+                Objects.equals(user_password, user.user_password);
     }
 
     @Override
