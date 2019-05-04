@@ -10,6 +10,12 @@ public class CartProduct {
 
     private int units;
 
+    private int cart_id;
+
+    public int getCart_id() { return cart_id; }
+
+    public void setCart_id(int cart_id) { this.cart_id = cart_id; }
+
     public int getId() {
         return id;
     }
@@ -41,11 +47,12 @@ public class CartProduct {
         CartProduct that = (CartProduct) o;
         return id == that.id &&
                 product_id == that.product_id &&
-                units == that.units;
+                units == that.units &&
+                cart_id == that.cart_id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, product_id, units);
+        return Objects.hash(id, product_id, units, cart_id);
     }
 }

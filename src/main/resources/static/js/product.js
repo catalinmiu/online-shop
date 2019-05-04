@@ -7,10 +7,11 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url : url,
-//            headers: {
-//                'Accept' : 'application/json',
-//                'Content-Type' : 'application/json'
-//            },
+            headers: {
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json'
+            },
+//            data : JSON.stringify(product),
             success : function(data) {
                 console.log("succes");
             },
@@ -18,6 +19,7 @@ $(document).ready(function() {
                 var val = request.responseText;
                 console.log(val);
             },
+            dataType : "text"
         });
     });
 

@@ -2,6 +2,7 @@ package com.example.onlineShop.respository;
 
 
 import com.example.onlineShop.domain.Cart;
+import com.example.onlineShop.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -31,5 +32,13 @@ public class CartsDao {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("user_id", cart.getUser_id());
         return simpleJdbcInsert.executeAndReturnKey(sqlParameterSource).intValue();
+    }
+
+    public Cart findByUserId(int id) throws Exception {
+        String query = "SELECT * FROM Carts WHERE user_id = " + id;
+        RowMapper<Cart> rowMapper = new BeanPropertyRowMapper<>(Cart.class);
+        Cart cart;
+        cart = jdbcTemplate.queryForObject(query, rowMapper);
+        return cart;
     }
 }

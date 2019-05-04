@@ -1,6 +1,8 @@
 package com.example.onlineShop.controller;
 
+import com.example.onlineShop.domain.Cart;
 import com.example.onlineShop.domain.User;
+import com.example.onlineShop.respository.CartsDao;
 import com.example.onlineShop.respository.UsersDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,10 +24,13 @@ import java.security.Principal;
 public class UsersController {
 
     @Autowired
-    UsersDao usersDao;
+    private UsersDao usersDao;
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private CartsDao cartsDao;
+
+    @Autowired
+    protected BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/login")
     public String getLogin(final Principal principal) {
@@ -48,7 +53,10 @@ public class UsersController {
     public ResponseEntity createUser(@RequestBody User user) {
         user.setUser_role(1);
         user.setUser_password(bCryptPasswordEncoder.encode(user.getUser_password()));
-        usersDao.create(user);
+        int userId = usersDao.create(user);
+        Cart cart = new Cart();
+        cart.setUser_id(userId);
+        cartsDao.create(cart);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

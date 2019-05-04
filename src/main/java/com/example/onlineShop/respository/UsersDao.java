@@ -1,6 +1,7 @@
 package com.example.onlineShop.respository;
 
 
+import com.example.onlineShop.domain.Product;
 import com.example.onlineShop.domain.User;
 import org.h2.result.Row;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,14 @@ public class UsersDao {
         sqlParameterSource.addValue("user_password", user.getUser_password());
         sqlParameterSource.addValue("user_role", user.getUser_role());
         return simpleJdbcInsert.executeAndReturnKey(sqlParameterSource).intValue();
+    }
+
+
+    public User findByName(String name) throws Exception {
+        String query = "SELECT * FROM Users WHERE username = '" + name + "'";
+        RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
+        User user;
+        user = jdbcTemplate.queryForObject(query, rowMapper);
+        return user;
     }
 }

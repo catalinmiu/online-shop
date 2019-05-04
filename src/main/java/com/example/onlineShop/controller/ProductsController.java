@@ -1,9 +1,8 @@
 package com.example.onlineShop.controller;
 
-import com.example.onlineShop.domain.Category;
-import com.example.onlineShop.domain.Product;
-import com.example.onlineShop.respository.CategoriesDao;
-import com.example.onlineShop.respository.ProductsDao;
+import com.example.onlineShop.domain.*;
+import com.example.onlineShop.respository.*;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Null;
+import java.security.Principal;
 import java.time.LocalDateTime;
 
 @Controller
@@ -22,6 +23,15 @@ public class ProductsController {
 
     @Autowired
     private CategoriesDao categoriesDao;
+
+    @Autowired
+    private CartsDao cartsDao;
+
+    @Autowired
+    private CartProductsDao cartProductsDao;
+
+    @Autowired
+    private UsersDao usersDao;
 
     @GetMapping("/")
     public String getHomePage() {
@@ -71,5 +81,38 @@ public class ProductsController {
         return "product";
     }
 
-    @PostMapping(value = "/product/{productId}")
+    @PostMapping(value = "/product/{productId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity product(@PathVariable int productId, final Principal principal) {
+        String username = principal.getName();
+        User user = null;
+        Cart cart = null;
+        CartProduct cartProduct = null;
+        try {
+            user = usersDao.findByName(username);
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        try {
+            cart = cartsDao.findByUserId(user.getId());
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        try {
+            cartProduct = cartProductsDao.findByProductId(productId);
+            cartProduct.setUnits(cartProduct.getUnits() + 1);
+            cartProductsDao.updateCartProduct(cartProduct);
+        } catch(Exception e) {
+            cartProduct = new CartProduct();
+            cartProduct.setProduct_id(productId);
+            cartProduct.setUnits(1);
+            cartProduct.setCart_id(cart.getId());
+            cartProductsDao.create(cartProduct);
+        }
+
+
+
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }
