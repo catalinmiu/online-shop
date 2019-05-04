@@ -60,4 +60,16 @@ public class ProductsController {
         categoriesDao.create(category);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    @GetMapping(value="/product/{productId}")
+    public String getProduct(@PathVariable int productId, Model model) {
+        try {
+            model.addAttribute("product", productsDao.findById(productId));
+        } catch (Exception e) {
+            return "404";
+        }
+        return "product";
+    }
+
+    @PostMapping(value = "/product/{productId}")
 }

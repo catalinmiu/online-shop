@@ -36,4 +36,12 @@ public class ProductsDao {
         sqlParameterSource.addValue("category_id", product.getCategoryId());
         return simpleJdbcInsert.executeAndReturnKey(sqlParameterSource).intValue();
     }
+
+    public Product findById(int id) throws Exception {
+        String query = "SELECT * FROM Products WHERE id = " + id;
+        RowMapper<Product> rowMapper = new BeanPropertyRowMapper<>(Product.class);
+        Product product;
+        product = jdbcTemplate.queryForObject(query, rowMapper);
+        return product;
+    }
 }

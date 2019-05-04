@@ -3,31 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <title>Please Login</title>
-    <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!--    <script type="text/javascript" src="js/login.js"></script>-->
+    <script type="text/javascript" src="js/login.js"></script>
+<!--    <sec:ajaxuthorize access="isAuthenticated()">-->
+<!--        <% response.sendRedirect("main"); %>-->
+<!--    </sec:ajaxuthorize>-->
 </head>
 <body>
-<div id="content">
-    <form id="login-form" th:action="@{/login}" method="post">
-        <h3>Sign In</h3>
-        <div th:if="${param.error}" class="alert alert-error">
-            Invalid username and password.
-        </div>
+
+    <form th:action="@{/login}" method="post">
         <div th:if="${param.logout}" class="alert alert-success">
             You have been logged out.
         </div>
-        <input type="text" id="username" name="username" placeholder="Username"/>
-        <br/>
-        <input type="password" id="password" name="password" placeholder="Password"/>
-        <div class="form-actions">
-            <button type="submit" id="loginBtn" class="btn">Login</button>
-            <br/><br/>
-            <button type="button" id="signUpBtn" class="btn">Sign Up</button>
-        </div>
+        <div class="limiter">
+            <div class="container-login100">
+                <div class="wrap-login100 p-t-50 p-b-90">
+                    <form class="login100-form validate-form flex-sb flex-w">
+					<span class="login100-form-title p-b-51">
+						Login
+					</span>
+                        <div th:if="${param.error}" class="alert alert-error">
+                            Invalid username and password.
+                        </div>
 
+                        <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
+                            <input id="username" class="input100" type="text" name="username" placeholder="Username">
+                            <span class="focus-input100"></span>
+                        </div>
+
+
+                        <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
+                            <input id="password" class="input100" type="password" name="password" placeholder="Password">
+                            <span class="focus-input100"></span>
+                        </div>
+
+                        <div class="container-login100-form-btn m-t-17">
+                            <button id="loginBtn" class="login100-form-btn">
+                                Login
+                            </button>
+                        </div>
+
+                        <div class="flex-sb-m w-full p-t-3 p-b-24">
+                            <span class="txt1">
+                                Don’t have an account?
+                            </span>
+
+                            <a class="contact100-form-checkbox" href="/sign_up">
+                                Sign Up
+                            </a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
     </form>
-</div>
+
 </body>
 </html>

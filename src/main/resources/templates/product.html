@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${product.title}"></title>
+    <script type="text/javascript" src="js/product.js"></script>
+</head>
+<body>
+<div>
+    <tr>
+        <td th:text="${product.title}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.description}"></td>
+        <td th:text="${product.stock}"></td>
+        <br/>
+    </tr>
+    <button id="submitBtn">
+        Add to cart
+    </button></div>
+</body>
+</html>

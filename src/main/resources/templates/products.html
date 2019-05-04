@@ -6,13 +6,17 @@
 </head>
 <body>
 <div>
+
     <tr th:each="product : ${products}">
-        <td th:text="${product.title}"></td>
-        <td th:text="${product.price}"></td>
-        <td th:text="${product.description}"></td>
-        <td th:text="${product.stock}"></td>
+        <a th:href="@{'/product/'+ ${product.id}}">
+            <td th:text="${product.title}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.stock}"></td>
+        </a>
     <br/>
     </tr>
+
 </div>
 </body>
 </html>
