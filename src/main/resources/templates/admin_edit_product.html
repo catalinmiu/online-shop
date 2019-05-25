@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/admin_edit_product.js"></script>
+</head>
+<body>
+<div>
+    <form>
+        <p>Title <input th:value="${product.title}" id = "productTitle" type="text"></p>
+        <p>Price <input th:value="${product.price}" id = "productPrice" type="number"></p>
+        <p>Description <textarea th:text="${product.description}" id = "productDescription"></textarea></p>
+        <p>Stock <input th:value="${product.stock}" id = "productStock" type="number"></p>
+        <p>Category
+            <select id="categoryId">
+                <tr th:each="category : ${categories}">
+                    <option th:if="${product.categoryId == category.id}" selected th:value="${category.id}"><td th:text="${category.title}"></td></option>
+                    <option th:unless="${product.categoryId == category.id}" th:value="${category.id}"><td th:text="${category.title}"></td></option>
+                    <br/>
+                </tr>
+            </select>
+        </p>
+        <p><input type="button" value="Submit" id="submitBtn"></p>
+    </form>
+</div>
+</body>
+</html>

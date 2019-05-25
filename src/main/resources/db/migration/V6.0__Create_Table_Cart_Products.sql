@@ -3,6 +3,6 @@ CREATE TABLE Cart_Products (
 	product_id int,
     cart_id int,
 	units int,
-	FOREIGN KEY(product_id) REFERENCES Products(id),
-	FOREIGN KEY(cart_id) REFERENCES Carts(id)
+	FOREIGN KEY(product_id) REFERENCES Products(id) ON DELETE CASCADE,
+	FOREIGN KEY(cart_id) REFERENCES Carts(id) ON DELETE CASCADE
 )

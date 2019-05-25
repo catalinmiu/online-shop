@@ -7,4 +7,5 @@ CREATE TABLE Products (
 	created_date datetime,
 	category_id int,
 	FOREIGN KEY(category_id) REFERENCES Categories(id)
+	ON DELETE CASCADE
 )

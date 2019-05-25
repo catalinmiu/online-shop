@@ -4,6 +4,7 @@ package com.example.onlineShop.respository;
 import com.example.onlineShop.domain.Cart;
 import com.example.onlineShop.domain.CartProduct;
 import com.example.onlineShop.domain.Product;
+import com.example.onlineShop.domain.dto.CartDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -36,17 +37,33 @@ public class CartProductsDao {
         return simpleJdbcInsert.executeAndReturnKey(sqlParameterSource).intValue();
     }
 
-    public CartProduct findByProductId(int id) throws Exception {
-        String query = "SELECT * FROM Cart_Products WHERE product_id = " + id;
+    public CartProduct findByProductIdAndCartId(int id, int cart_id) throws Exception {
+        String query = "SELECT * FROM Cart_Products WHERE product_id = " + id + " AND cart_id = " + cart_id;
         RowMapper<CartProduct> rowMapper = new BeanPropertyRowMapper<>(CartProduct.class);
         CartProduct cartProduct;
         cartProduct = jdbcTemplate.queryForObject(query, rowMapper);
         return cartProduct;
     }
 
-    public void updateCartProduct(CartProduct cartProduct) {
+    public void setUnitsByCartProductId(CartProduct cartProduct) {
         String query = "UPDATE Cart_Products SET units=? WHERE id=?";
         jdbcTemplate.update(query, cartProduct.getUnits(), cartProduct.getId());
+    }
+
+    public List<CartDto> findAllProductsByCartId(int id) throws Exception {
+        String query = "SELECT * FROM Cart_Products c JOIN Products p ON c.product_id = p.id WHERE cart_id = " + id;
+        RowMapper<CartDto> rowMapper = new BeanPropertyRowMapper<>(CartDto.class);
+        return jdbcTemplate.query(query, rowMapper);
+    }
+
+    public List<CartProduct> findAllCartProductByCartId(int id) throws Exception {
+        String query = "SELECT * FROM Cart_Products c WHERE cart_id = " + id;
+        RowMapper<CartProduct> rowMapper = new BeanPropertyRowMapper<>(CartProduct.class);
+        return jdbcTemplate.query(query, rowMapper);
+    }
+    public void deleteById(int id, int units) {
+        String query = "DELETE FROM Cart_Products WHERE cart_id = " + id + " AND units = " + units;
+        jdbcTemplate.update(query);
     }
 
 }

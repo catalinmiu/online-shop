@@ -1,18 +1,17 @@
-
 $(document).ready(function() {
-    $("#submitBtn").click(function() {
-        var url = window.location.pathname;
+    $("#deleteBtn").click(function() {
+        var productId = $("#productId").val();
 
         $.ajax({
             type: "POST",
-            url : url,
+            url : "/admin_products-delete",
             headers: {
                 'Accept' : 'application/json',
                 'Content-Type' : 'application/json'
             },
-//            data : JSON.stringify(product),
+            data : JSON.stringify(productId),
             success : function(data) {
-                console.log("succes");
+                    window.location.href = "/admin-products";
             },
             error: function(request, status, error) {
                 var val = request.responseText;

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/adminProducts.js"></script>
+</head>
+<body>
+<select id="productId">
+    <tr th:each="product : ${products}">
+        <option th:value="${product.id}"><td th:text="${product.title}"></td></option>
+        <br/>
+    </tr>
+</select>
+<button id="deleteBtn" class="login100-form-btn">
+    Delete
+</button>
+<button id="editBtn" class="login100-form-btn">
+    Edit
+</button>
+</body>
+</html>

@@ -44,4 +44,9 @@ public class ProductsDao {
         product = jdbcTemplate.queryForObject(query, rowMapper);
         return product;
     }
+
+    public void deleteById(int id) {
+        String query = "DELETE FROM Products WHERE id = " + id;
+        jdbcTemplate.update(query);
+    }
 }

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/myCart.js"></script>
+</head>
+<body onload="showTotalPrice()">
+<div>
+
+    <tr th:each="product : ${products}">
+        <div class="product" th:id="${product.id}">
+            <td th:text="${product.title}"></td>
+            <div class="price" th:id="${product.price}">
+                <td th:text="${product.price}"></td>
+            </div>
+            <select class="units">
+                <option>Select</option>
+                <option th:each="n : ${#numbers.sequence(0,product.stock)}" th:value="${n}" th:text="${n}" th:selected="${n==product.units}"/>
+            </select>
+        </div>
+        <br/>
+
+    </tr>
+
+    <div id="totalPrice"></div>
+    <button id="checkoutBtn" class="login100-form-btn">
+        Checkout
+    </button>
+    <button id="saveBtn" class="login100-form-btn">
+        Save
+    </button>
+
+</div>
+</body>
+</html>
