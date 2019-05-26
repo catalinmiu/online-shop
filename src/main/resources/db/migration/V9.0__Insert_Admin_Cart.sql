@@ -1,0 +1,1 @@
+INSERT INTO Carts (user_id) values (1);

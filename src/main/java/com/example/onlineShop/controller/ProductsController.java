@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Null;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -241,13 +242,13 @@ public class ProductsController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @GetMapping("/admin-products")
+    @GetMapping("/admin_products")
     public String getAdminProducts(Model model) {
         model.addAttribute("products", productsDao.findAll());
         return "admin_products";
     }
 
-    @PostMapping(value = "/admin_products-delete", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/admin_products_delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity adminProductsDelete(@RequestBody Integer productId) {
         productsDao.deleteById(productId);
@@ -269,9 +270,40 @@ public class ProductsController {
     @PostMapping(value = "/admin_edit_product", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity adminEditProduct(@RequestBody Product product) {
-        product.setCreatedDate(LocalDateTime.now());
-        productsDao.create(product);
+        productsDao.updateProductById(product);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("/admin_overview")
+    public String getAdminOverview(Model model) {
+
+        float total = 0;
+        int id;
+        Product p1;
+        List<CartProduct> cartProducts = cartProductsDao.findAllPaidProduct();
+        for (CartProduct i : cartProducts) {
+            id = i.getProduct_id();
+            try {
+                p1 = productsDao.findById(id);
+                total += p1.getPrice() * i.getUnits();
+            } catch (Exception e) {
+                e.getStackTrace();
+            }
+        }
+
+        List<Product> products = productsDao.findAll();
+        int count = 0;
+        for (Product product : products) {
+            count += product.getStock();
+        }
+
+        try {
+            model.addAttribute("profit", total);
+            model.addAttribute("stock", count);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "admin_overview";
     }
 
 }

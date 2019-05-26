@@ -50,6 +50,7 @@ $(document).ready(function() {
                 window.location.href = "/";
             },
             error: function(request, status, error) {
+                $("#error").text("There was a problem. Please refresh this page and try again");
                 var val = request.responseText;
                 console.log(val);
             },
@@ -71,6 +72,7 @@ $(document).ready(function() {
                     window.location.href = "/myCart";
                 },
                 error: function(request, status, error) {
+                    $("#error").text("There was a problem. Please refresh this page and try again");
                     var val = request.responseText;
                     console.log(val);
                 },

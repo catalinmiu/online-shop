@@ -50,6 +50,7 @@ $(document).ready(function() {
                 window.location.href = "/";
             },
             error: function(request, status, error) {
+                $("#errorMsg").text("There is another user with the same username. Change it and try again!");
                 var val = request.responseText;
                 console.log(val);
             },

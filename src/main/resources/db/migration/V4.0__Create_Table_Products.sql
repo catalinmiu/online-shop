@@ -1,8 +1,8 @@
 CREATE TABLE Products (
 	id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    title varchar(40),
+    title varchar(100),
     price float,
-    description varchar(256),
+    description longtext,
 	stock int,
 	created_date datetime,
 	category_id int,

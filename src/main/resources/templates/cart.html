@@ -8,7 +8,7 @@
 </head>
 <body onload="showTotalPrice()">
 <div>
-
+    <div id="error"></div>
     <tr th:each="product : ${products}">
         <div class="product" th:id="${product.id}">
             <td th:text="${product.title}"></td>

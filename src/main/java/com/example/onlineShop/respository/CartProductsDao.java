@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -64,6 +65,13 @@ public class CartProductsDao {
     public void deleteById(int id, int units) {
         String query = "DELETE FROM Cart_Products WHERE cart_id = " + id + " AND units = " + units;
         jdbcTemplate.update(query);
+    }
+
+    public List<CartProduct> findAllPaidProduct(){
+        String query = "SELECT distinct cp.id, cp.product_id, cp.cart_id, cp.units FROM Cart_Products cp JOIN CARTS ca " +
+                "ON cp.cart_id = ca.id where ca.paid_date is not null";
+        RowMapper<CartProduct> rowMapper = new BeanPropertyRowMapper<>(CartProduct.class);
+        return jdbcTemplate.query(query, rowMapper);
     }
 
 }

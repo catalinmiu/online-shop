@@ -49,4 +49,12 @@ public class ProductsDao {
         String query = "DELETE FROM Products WHERE id = " + id;
         jdbcTemplate.update(query);
     }
+
+    public void updateProductById(Product product) {
+        String query = "UPDATE Products SET title = '" + product.getTitle() + "', price = " + product.getPrice() +
+                ", description = '" + product.getDescription() + "', stock = " + product.getStock() +
+                ", category_id = " + product.getCategoryId()+ " WHERE id = " + product.getId();
+        jdbcTemplate.update(query);
+    }
+
 }

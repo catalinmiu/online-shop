@@ -4,6 +4,7 @@ function Product(title, price, description, stock, categoryId){
     this.description = description;
     this.stock = stock;
     this.categoryId = categoryId;
+    this.id = window.location.pathname.split('/')[2];
 }
 
 $(document).ready(function() {
@@ -14,7 +15,6 @@ $(document).ready(function() {
         var stock = $("#productStock").val();
         var categoryId = $("#categoryId").val();
         var product = new Product(title, price, description, stock, categoryId);
-        console.log(JSON.stringify(product));
 
         $.ajax({
             type: "POST",
@@ -25,7 +25,7 @@ $(document).ready(function() {
             },
             data : JSON.stringify(product),
             success : function(data) {
-                console.log("succes");
+                location.reload();
             },
             error: function(request, status, error) {
                 var val = request.responseText;
